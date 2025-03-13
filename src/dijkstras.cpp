@@ -10,7 +10,7 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
 
     priority_queue<int, vector<int>, greater<int>> pq;
     distances[source] = 0;
-    pq.emplace(source);
+    pq.push(source);
 
     while (!pq.empty()) {
         int v = pq.top();
@@ -24,7 +24,7 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
             if (!explored[e.dst] && distances[v] + e.weight < distances[e.dst]) {
                 distances[e.dst] = distances[v] + e.weight;
                 previous[e.dst] = v;
-                pq.emplace(e.dst);
+                pq.push(e.dst);
             }
         }
     }

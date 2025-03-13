@@ -2,7 +2,7 @@
 
 int main() {
     Graph g;
-    vector<string> filenames = {"small.txt", "medium.txt", "large.txt", "largest.txt"};
+    vector<string> filenames = {"large.txt"};//, "medium.txt", "large.txt", "largest.txt"};
     for (auto filename : filenames) {
         cout << "Filename: " << filename << "\n" << endl;
         file_to_graph(filename, g);
