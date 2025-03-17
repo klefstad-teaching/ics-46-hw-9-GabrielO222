@@ -15,7 +15,7 @@ int levenshtein(string a, string b) {
 }
 
 bool edit_distance_within(const std::string &str1, const std::string &str2, int d) {
-    return d <= levenshtein(str1, str2);
+    return levenshtein(str1, str2) <= d;
 }
 
 bool is_adjacent(const string &word1, const string &word2) {
@@ -83,9 +83,13 @@ void load_words(set<string> &word_list, const string &file_name) {
 
 void print_word_ladder(const vector<string> &ladder) {
     size_t n = ladder.size();
-    for (int i = 0; i < n; ++i) {
-        cout << ladder[i] << " ";
-    } 
+    if (n > 0) {
+        for (int i = 0; i < n; ++i)
+            cout << ladder[i] << " ";
+    }
+    else
+        cout << "No word ladder found.";
+    cout << endl;
 }
 
 void verify_word_ladder() {
