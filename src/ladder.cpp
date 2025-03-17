@@ -6,11 +6,16 @@ void error(string word1, string word2, string msg) {
     cerr << "Error: Word 1 is " << word1 << " and word 2 is " << word2 << ": " << msg << endl;
 }
 
+int levenshtein(string a, string b) {
+    size_t sizeA = a.size(), sizeB = b.size();
+    if (sizeB == 0) return sizeA;
+    if (sizeA == 0) return sizeB;
+    if (a[0] == b[0]) return levenshtein(a.substr(1), b.substr(1));
+    return 1 + min(levenshtein(a.substr(1), b), min(levenshtein(a, b.substr(1)), levenshtein(a.substr(1), b.substr(1))));
+}
+
 bool edit_distance_within(const std::string &str1, const std::string &str2, int d) {
-    set<string> list;
-    load_words(list, "words.txt");
-    generate_word_ladder(str1, str2, list);
-    return list.size() <= d;
+    return d <= levenshtein(str1, str2);
 }
 
 bool is_adjacent(const string &word1, const string &word2) {
@@ -78,10 +83,9 @@ void load_words(set<string> &word_list, const string &file_name) {
 
 void print_word_ladder(const vector<string> &ladder) {
     size_t n = ladder.size();
-    for (int i = 0; i < n - 1; ++i) {
-        cout << ladder[i] << " -> ";
+    for (int i = 0; i < n; ++i) {
+        cout << ladder[i] << " ";
     } 
-    cout << ladder[n - 1] << endl;
 }
 
 void verify_word_ladder() {
